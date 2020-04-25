@@ -36,6 +36,8 @@ enemyX_change = []
 enemyY_change = []
 num_of_enemies = 6
 
+# To do: star image
+
 for i in range(num_of_enemies):
     enemyImg.append(pygame.image.load('enemy.png'))
     enemyX.append(random.randint(0, 736))
@@ -90,6 +92,10 @@ def fire_bullet(x, y):
     bullet_state = "fire"
     screen.blit(bulletImg, (x + 16, y + 10))
 
+# To do: 
+# def stars(x, y):
+#       screen.blit(starImg, (x, y)) Note: Probably not exactly how it's supposed to be done.
+
 
 def isCollision(enemyX, enemyY, bulletX, bulletY):
     distance = math.sqrt(math.pow(enemyX - bulletX, 2) + (math.pow(enemyY - bulletY, 2)))
@@ -119,7 +125,10 @@ while running:
                 playerX_change = 5
             if event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
-                    bulletSound = mixer.Sound("laser.wav")
+                    #Randomize sounds here
+                    bulletSounds = ["laser.wav", "laser2.wav", "laser3.wav", "laser4.wav"]
+                    randomNum = random.randint(0, 3)
+                    bulletSound = mixer.Sound(bulletSounds[randomNum])
                     bulletSound.play()
                     # Get the current x cordinate of the spaceship
                     bulletX = playerX
