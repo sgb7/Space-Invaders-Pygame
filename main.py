@@ -12,6 +12,7 @@ screen = pygame.display.set_mode((800, 600))
 
 # Background
 background = pygame.image.load('background.png')
+dangerBackground = pygame.image.load('dangerBackground.png')
 
 # Sound
 mixer.music.load("background.wav")
@@ -113,6 +114,11 @@ while running:
     screen.fill((0, 0, 0))
     # Background Image
     screen.blit(background, (0, 0))
+
+    for i in range(num_of_enemies):
+        if enemyY[i] > 340:
+            screen.blit(dangerBackground, (0,0))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
