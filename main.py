@@ -79,6 +79,10 @@ def game_over_text():
     over_text = over_font.render("GAME OVER", True, (255, 255, 255))
     screen.blit(over_text, (200, 250))
 
+def danger_text():
+    over_text = over_font.render("DANGER", True, (255, 255, 255))
+    screen.blit(over_text, (250, 250))
+
 
 def player(x, y):
     screen.blit(playerImg, (x, y))
@@ -115,9 +119,13 @@ while running:
     # Background Image
     screen.blit(background, (0, 0))
 
+    # Danger Background Image
     for i in range(num_of_enemies):
         if enemyY[i] > 340:
             screen.blit(dangerBackground, (0,0))
+            for j in range(num_of_enemies):
+                if enemyY[j] != 2000:
+                    danger_text()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -126,8 +134,10 @@ while running:
         # if keystroke is pressed check whether its right or left
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
+                playerImg = pygame.transform.rotate(playerImg, 20)
                 playerX_change = -5
             if event.key == pygame.K_RIGHT:
+                playerImg = pygame.transform.rotate(playerImg, -20)
                 playerX_change = 5
             if event.key == pygame.K_SPACE:
                 if bullet_state is "ready":
@@ -142,6 +152,7 @@ while running:
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                playerImg = pygame.image.load('player.png')
                 playerX_change = 0
 
     # 5 = 5 + -0.1 -> 5 = 5 - 0.1
@@ -160,6 +171,7 @@ while running:
         if enemyY[i] > 440:
             for j in range(num_of_enemies):
                 enemyY[j] = 2000
+            screen.blit(background, (0,0))
             game_over_text()
             break
 
